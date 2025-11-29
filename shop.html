@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop – Vinyl Dashboard</title>
+
+  <!-- Optional: deine bestehende CSS, falls im selben Ordner -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* Fallback-Styles, falls style.css nicht greift */
+    :root{
+      --bg: #0e0f0b;
+      --card: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --olive: #9BA56A;
+      --text: #eef0e8;
+      --muted: #a7ad97;
+      --radius: 18px;
+    }
+    body{
+      margin:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    .container{
+      width:min(1200px, 92vw);
+      margin:0 auto;
+    }
+    header{
+      position: sticky;
+      top:0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(14,15,11,0.95), rgba(14,15,11,0.6));
+      border-bottom: 1px solid var(--card-border);
+      z-index:10;
+    }
+    .head-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 0;
+      gap:12px;
+    }
+    .brand{
+      font-weight:800;
+      letter-spacing:1px;
+    }
+    .nav a{
+      color:var(--text);
+      text-decoration:none;
+      opacity:.85;
+      margin-right:14px;
+      font-weight:600;
+    }
+    .nav a:hover{ opacity:1; }
+    .cta{
+      background: var(--olive);
+      color:#12130e;
+      padding:10px 14px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.3px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .hero{
+      padding:36px 0 10px;
+    }
+    .kicker{
+      color:var(--olive);
+      font-weight:800;
+      letter-spacing:2px;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+    h1{
+      font-size: clamp(28px, 4vw, 44px);
+      margin:8px 0 8px;
+    }
+    .sub{
+      color:var(--muted);
+      max-width:700px;
+      line-height:1.5;
+    }
+
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 24px;
+    }
+    .search{
+      flex:1 1 260px;
+      background: var(--card);
+      border:1px solid var(--card-border);
+      border-radius:999px;
+      padding:10px 14px;
+      color:var(--text);
+      outline:none;
+    }
+    select{
+      background: var(--card);
+      border:1px solid var(--card-border);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      outline:none;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+      padding-bottom:50px;
+    }
+    @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+    @media (max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:330px;
+    }
+    .thumb{
+      aspect-ratio: 16/10;
+      background:
+        radial-gradient(1200px 400px at -10% -20%, rgba(155,165,106,.25), transparent 60%),
+        radial-gradient(900px 300px at 120% 0%, rgba(155,165,106,.18), transparent 60%),
+        #14150f;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#cfd5b8;
+      letter-spacing:1px;
+    }
+    .content{
+      padding:14px 14px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+    .title{
+      font-weight:800;
+      font-size:18px;
+    }
+    .meta{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.4;
+      flex:1;
+    }
+    .price-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-top:6px;
+    }
+    .price{
+      font-weight:900;
+      font-size:18px;
+    }
+    .buy{
+      background: transparent;
+      color: var(--text);
+      border:1px solid var(--card-border);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .buy:hover{
+      border-color: var(--olive);
+      color: var(--olive);
+    }
+
+    footer{
+      border-top:1px solid var(--card-border);
+      padding:18px 0 30px;
+      color:var(--muted);
+      font-size:14px;
+    }
+  
+    /* Produktfoto-Placeholder */
+    .thumb { position: relative; padding: 0; }
+    .thumb-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+</style>
+
+<style>
+  /* --- CART DIALOG --- */
+  .cart-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    padding:8px 12px;
+    border-radius: 999px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .cart-btn:hover{ border-color: var(--olive); }
+  .cart-count{
+    background: var(--olive);
+    color:#12130e;
+    font-size:12px;
+    padding:2px 7px;
+    border-radius:999px;
+    font-weight:900;
+    min-width:20px;
+    text-align:center;
+  }
+
+  dialog#cartDialog{
+    width:min(520px, 94vw);
+    border:none;
+    border-radius:18px;
+    padding:0;
+    background:#0f110c;
+    color:var(--text);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  }
+  dialog#cartDialog::backdrop{
+    background: rgba(0,0,0,0.55);
+  }
+  .cart-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px;
+    border-bottom:1px solid var(--card-border);
+  }
+  .cart-title{ font-size:20px; font-weight:900; }
+  .cart-close{
+    background:transparent; border:1px solid var(--card-border);
+    color:var(--text); border-radius:999px; width:34px; height:34px;
+    cursor:pointer; font-weight:900;
+  }
+
+  .cart-items{
+    padding:12px 12px;
+    max-height:55vh; overflow:auto;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .cart-item{
+    background: var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:10px;
+    display:grid; grid-template-columns: 1fr auto;
+    gap:8px; align-items:center;
+  }
+  .cart-item-title{ font-weight:800; }
+  .cart-item-meta{ color:var(--muted); font-size:13px; margin-top:2px; }
+  .qty-controls{
+    display:inline-flex; align-items:center; gap:6px;
+    background: rgba(255,255,255,0.02);
+    border:1px solid var(--card-border);
+    border-radius:999px; padding:4px 6px;
+  }
+  .qty-btn{
+    width:26px; height:26px; border-radius:999px;
+    border:1px solid var(--card-border);
+    background:transparent; color:var(--text); cursor:pointer; font-weight:900;
+  }
+  .qty-num{ min-width:18px; text-align:center; font-weight:800; }
+  .remove-btn{
+    margin-left:8px;
+    background:transparent; border:none; color:var(--muted); cursor:pointer; font-weight:800;
+  }
+  .remove-btn:hover{ color:#ffb4b4; }
+
+  .cart-footer{
+    border-top:1px solid var(--card-border);
+    padding:14px 16px 18px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .cart-row{ display:flex; justify-content:space-between; align-items:center; }
+  .cart-checkout{
+    background: var(--olive); color:#12130e; border:none; border-radius:999px;
+    padding:12px 14px; font-weight:900; cursor:pointer;
+  }
+  .cart-clear{
+    background:transparent; color:var(--text); border:1px solid var(--card-border);
+    border-radius:999px; padding:10px 12px; font-weight:800; cursor:pointer;
+  }
+  .cart-hint{ color:var(--muted); font-size:12px; text-align:center; margin-top:2px;}
+</style>
+
+</head>
+<body>
+  <header>
+  <div class="container head-row">
+    <div class="brand">SHOP FÜR ALLES.</div>
+    <button class="cart-btn" id="openCart" aria-label="Warenkorb öffnen" type="button">
+      🛒 <span>Warenkorb</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="kicker">3 von 20 sternen auf yelp</div>
+      <h1>Alles was du brauchst.</h1>
+      <p class="sub">
+Für Ordnung im Regal und Chaos im Kopf: Außenhüllen für Platten, Schutzfolien für Bücher, Shirts für deinen Auftritt, CDs fürs Ohr. Und weil wir’s können: Hawaii-Toast als Kunst und Robert als Denkmal der Verpeilung.“ </p>
+
+      <div class="toolbar">
+<select>
+          <option>Alle Kategorien</option>
+          <option>Vinyl‑Zubehör</option>
+          <option>Manga‑Schutz</option>
+          <option>Wand‑/Display‑Systeme</option>
+          <option>Gooner-Shit</option>
+        </select>
+        <select>
+          <option>Sortieren: Beliebt</option>
+          <option>Neu</option>
+          <option>Preis aufsteigend</option>
+          <option>Preis absteigend</option>
+        </select>
+      </div>
+    </section>
+
+    
+    <section class="grid" id="productGrid">
+      <article class="card" data-id="sleeves-pro" data-name="Premium Hüllen (10x)" data-price="5.90">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder1.png" alt="*Woof*">
+          </div>
+        <div class="content">
+          <div class="title">Premium Hüllen (10x)</div>
+          <div class="meta">Wie Kondome, nur für Vinyl. Sicher ist sicher.</div>
+          <div class="price-row">
+            <div class="price">5,90 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-id="record-stand-olive" data-name="Hawaii-Toast" data-price="1.90">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder2.png" alt="Hawaii-Toast">
+          </div>
+        <div class="content">
+          <div class="title">Hawaii-Toast</div>
+          <div class="meta">Ein Klassiker, der so falsch ist, dass er wieder richtig wird.</div>
+          <div class="price-row">
+            <div class="price">1,90 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-id="manga-case" data-name="Schuber &amp; Schutzfolien Set 20-teilig" data-price="9.50">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder3.png" alt="Manga‑Case">
+          </div>
+        <div class="content">
+          <div class="title">Schutzfolien Set 20-teilig</div>
+          <div class="meta">Wenn schon sammeln, dann richtig.</div>
+          <div class="price-row">
+            <div class="price">9,50 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-id="wall-grid" data-name="T-Shirt &quot;Feiner Junge&quot;" data-price="29.00">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder4.png" alt="T-Shirt &quot;Feiner Junge&quot;">
+          </div>
+        <div class="content">
+          <div class="title">T-Shirt "Feiner Junge"</div>
+          <div class="meta">Für feine Jungs und alle, die so tun als wären sie’s.</div>
+          <div class="price-row">
+            <div class="price">29,00 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-id="ticket-binder" data-name="Babymonster CD" data-price="14.80">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder5.png" alt="Babymonster CD">
+          </div>
+        <div class="content">
+          <div class="title">Babymonster CD</div>
+          <div class="meta">Klingt wie Sommer, fühlt sich an wie Freitag.</div>
+          <div class="price-row">
+            <div class="price">14,80 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-id="cleaner-kit" data-name="&quot;Robert&quot;" data-price="49.50">
+        <div class="thumb">
+            <img class="thumb-img" src="assets/img/products/placeholder6.png" alt="&quot;Robert&quot;&quot;">
+          </div>
+        <div class="content">
+          <div class="title">"Robert"</div>
+          <div class="meta">Steht rum. Sieht wichtig aus. Ist Robert.</div>
+          <div class="price-row">
+            <div class="price">49,50 €</div>
+            <button class="buy js-add" type="button">In den Warenkorb</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- CART DIALOG -->
+  <dialog id="cartDialog" aria-label="Warenkorb">
+    <div class="cart-header">
+      <div class="cart-title">Warenkorb</div>
+      <button class="cart-close" id="closeCart" aria-label="Schließen" type="button">✕</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="cart-row">
+        <span>Zwischensumme</span>
+        <strong id="cartSubtotal">0,00 €</strong>
+      </div>
+      <button class="cart-checkout" id="checkoutBtn" type="button">Zur Kasse (Demo)</button>
+      <button class="cart-clear" id="clearCartBtn" type="button">Warenkorb leeren</button>
+      <div class="cart-hint">Alles Demo – kein echter Checkout.</div>
+    </div>
+  </dialog>
+
+
+  <footer>
+    <div class="container">
+         </div>
+  </footer>
+
+<script>
+(function(){
+  const CART_KEY = "demo_cart_v1";
+
+  const openBtn = document.getElementById("openCart");
+  const closeBtn = document.getElementById("closeCart");
+  const dialog = document.getElementById("cartDialog");
+  const itemsEl = document.getElementById("cartItems");
+  const countEl = document.getElementById("cartCount");
+  const subtotalEl = document.getElementById("cartSubtotal");
+  const clearBtn = document.getElementById("clearCartBtn");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+
+  function safeParse(json){
+    try { return JSON.parse(json); } catch(e){ return null; }
+  }
+  function loadCart(){
+    const raw = (typeof localStorage !== "undefined") ? localStorage.getItem(CART_KEY) : null;
+    return safeParse(raw) || {};
+  }
+  function saveCart(cart){
+    try {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      }
+    } catch(e){}
+  }
+
+  let cart = loadCart();
+
+  function money(n){
+    const num = Number(n) || 0;
+    return num.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+  }
+
+  function calcSubtotal(){
+    let sum = 0;
+    for(const id in cart){
+      sum += (Number(cart[id].price) || 0) * (Number(cart[id].qty) || 0);
+    }
+    return sum;
+  }
+
+  function render(){
+    const ids = Object.keys(cart);
+    itemsEl.innerHTML = "";
+
+    if(ids.length === 0){
+      itemsEl.innerHTML = '<div style="color:var(--muted);padding:8px 4px;">Warenkorb ist leer.</div>';
+    } else {
+      ids.forEach(id => {
+        const item = cart[id];
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <div>
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-meta">${money(item.price)} pro Stück</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="qty-controls">
+              <button class="qty-btn" type="button" data-action="dec" data-id="${id}">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" type="button" data-action="inc" data-id="${id}">+</button>
+            </div>
+            <button class="remove-btn" type="button" data-action="remove" data-id="${id}">Entfernen</button>
+          </div>
+        `;
+        itemsEl.appendChild(row);
+      });
+    }
+
+    const count = ids.reduce((a,id)=>a+(Number(cart[id].qty)||0),0);
+    countEl.textContent = count;
+    subtotalEl.textContent = money(calcSubtotal());
+    saveCart(cart);
+  }
+
+  function addItemFromCard(card){
+    const id = (card.dataset.id || "").trim();
+    const name = (card.dataset.name || "").trim();
+    let price = (card.dataset.price || "").toString().replace(",", ".");
+    price = Number(price);
+
+    if(!id || !name || !Number.isFinite(price)) return;
+
+    cart[id] = cart[id] || { id, name, price, qty: 0 };
+    cart[id].qty += 1;
+    render();
+    openCart();
+  }
+
+  document.querySelectorAll(".card .js-add").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      const card = e.target.closest(".card");
+      if(card) addItemFromCard(card);
+    });
+  });
+
+  itemsEl.addEventListener("click", (e)=>{
+    const btn = e.target.closest("[data-action]");
+    if(!btn) return;
+    const id = btn.dataset.id;
+    const action = btn.dataset.action;
+    if(!cart[id]) return;
+
+    if(action === "inc") cart[id].qty += 1;
+    if(action === "dec") cart[id].qty -= 1;
+    if(action === "remove") cart[id].qty = 0;
+
+    if(cart[id].qty <= 0) delete cart[id];
+    render();
+  });
+
+  function openCart(){
+    if (!dialog.open) dialog.showModal();
+  }
+  function closeCart(){
+    if (dialog.open) dialog.close();
+  }
+
+  openBtn?.addEventListener("click", openCart);
+  closeBtn?.addEventListener("click", closeCart);
+
+  clearBtn?.addEventListener("click", ()=>{
+    cart = {};
+    render();
+  });
+
+  checkoutBtn?.addEventListener("click", ()=>{
+    alert("Demo-Checkout 🙂\nZwischensumme: " + money(calcSubtotal()));
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>

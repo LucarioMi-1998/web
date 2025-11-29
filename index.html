@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Platzhalter-Shop – TURNUP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+<style>
+  /* Hero Auto-Slider (Fade) */
+  .hero-image-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.25);
+  }
+  .hero-image-slider .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 600ms ease, transform 1200ms ease;
+  }
+  .hero-image-slider .slide.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+<style>
+/* --- HERO SLIDER VISIBILITY FIX (overrides) --- */
+.hero-image-wrap,
+.hero-image-main,
+.hero-image-slider {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* sorgt dafür, dass die rechte Hero-Spalte nicht kollabiert */
+.hero-image-wrap {
+  min-height: 420px;
+}
+
+/* Container für absolute Slides */
+.hero-image-main {
+  position: relative;
+  min-height: 420px;
+}
+
+.hero-image-slider {
+  position: relative;
+  min-height: 420px;
+  border-radius: 22px;
+  overflow: hidden;
+}
+</style>
+
+</head>
+<body>
+<div class="page">
+
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-pill"><span>Dein persönliches Dashboard für Vinyl, Manga und mehr</span></div>
+      <span>Dein persönliches Dashboard für Vinyl, Manga und mehr</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-inner">
+      <div class="logo-group">
+        <div class="logo-placeholder">LM</div>
+        <div class="logo-text">
+          <span>LUCA MICHALSKI</span>
+          <span> Grafikdesigner</span>
+        </div>
+      </div>
+
+      <nav class="nav-main">
+        <a href="index.html" class="nav-link active">Highlights</a>
+        <a href="projekt.html" class="nav-link">Zeugs</a>
+        <a href="kontakt.html" class="nav-link">Kontakt</a>
+      </nav>
+
+      <div class="header-actions">
+        <form class="header-search" action="#" method="get">
+          <input class="header-search-input" type="search" name="q" placeholder="Begriff eingeben..." />
+          <button class="header-search-button" type="submit">Suche</button>
+        </form>
+        <a class="header-cta" href="shop.html" target="_blank" rel="noopener noreferrer">Shop</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div>
+            <div class="hero-badge-row">
+              <span class="hero-badge">Platten-Archivierung</span>
+              <span class="hero-sub">Behalte den Überblick</span>
+            </div>
+            <h1 class="hero-title">
+              Vinyl-Sammlung <span class="hero-highlight">Nostalgie</span>
+            </h1>
+            <p class="hero-text">
+              Digitale Archivierungstools machen es leicht, selbst große Vinylsammlungen übersichtlich zu verwalten. Mit wenigen Klicks lassen sich Titel, Pressungen und Cover erfassen, durchsuchen und sortieren. So behält man jederzeit den perfekten Überblick – unabhängig vom physischen Regal.
+            </p>
+
+            <div class="hero-actions">
+	<a href="https://lucariomi-1998.github.io/Platten/"
+	   class="btn-primary modal-cta"
+	   target="_blank"
+	   rel="noopener noreferrer">
+	  Zur Vinyl-App
+	</a>
+                         </div>
+
+            <div class="hero-meta">
+              <div class="hero-meta-item">
+                <span class="hero-meta-dot"></span>
+                <span>Struktur</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-dot"></span>
+                <span>Organisation</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-dot"></span>
+                <span>Überblick</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <div class="hero-image-main">
+              <div class="hero-image-slider" id="heroSlider">
+                <img class="slide active" src="assets/img/vinyl-1.png" alt="Hero Slide 1">
+                <img class="slide" src="assets/img/vinyl-2.png" alt="Hero Slide 2">
+                <img class="slide" src="assets/img/vinyl-3.png" alt="Hero Slide 3">
+                <img class="slide" src="assets/img/hero.png" alt="Hero Slide 3">
+				              </div>
+            </div>
+
+            <div class="hero-floating-card">
+              <div class="hero-floating-heading">Platzhalter Infobox-Titel</div>
+              <div class="hero-floating-note">
+                Kurzer erklärender Platzhalter-Text für ein besonderes Feature oder eine Info.
+              </div>
+            </div>
+
+            <div class="hero-badge-stamp">
+              Platzhalter-Siegel<br/>z.B. % Rabatt
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 4 KLICKBARE KATEGORIEN ===== -->
+        <div class="category-row">
+          <article class="category-card" data-modal="modal-1">
+            <div class="category-thumb">
+              <img src="assets/img/platte.png" alt="Platzhalter Kategorie 1" />
+            </div>
+            <div>
+              <div class="category-body-title">Vinyl-Sammlung</div>
+              <div class="category-body-sub">Behalte den Überblick über deine Platten.</div>
+</div>
+          </article>
+
+          <article class="category-card" data-modal="modal-2">
+            <div class="category-thumb">
+              <img src="assets/img/manga-2.png" alt="Platzhalter Kategorie 2" />
+            </div>
+            <div>
+              <div class="category-body-title">Manga-Sammlung</div>
+              <div class="category-body-sub">Behalte den Überblick über deine Mangas.</div>
+</div>
+          </article>
+
+          <article class="category-card" data-modal="modal-3">
+            <div class="category-thumb">
+              <img src="assets/img/wand.png" alt="Platzhalter Kategorie 3" />
+            </div>
+            <div>
+              <div class="category-body-title">Manga-Wand</div>
+              <div class="category-body-sub">Sieh dir deine Werke in schönen Rahmen an.</div>
+</div>
+          </article>
+
+          <article class="category-card" data-modal="modal-4">
+            <div class="category-thumb">
+              <img src="assets/img/ticket.png" alt="Platzhalter Kategorie 4" />
+            </div>
+            <div>
+              <div class="category-body-title">Ticket-System</div>
+              <div class="category-body-sub">Wende dich mit deinen Problemen an den Support.</div>
+</div>
+          </article>
+        </div>
+        <!-- =============================== -->
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-group">
+            <span>Live</span>
+            <h2>Aktuelles</h2>
+          </div>
+          <div class="section-sub"></div>
+        </div>
+
+        <div class="widgets-grid">
+          <article class="widget-card">
+            <div class="widget-label">Temperatur</div>
+            <div class="widget-value" id="w-temp">3°</div>
+            <div class="widget-sub" id="w-desc">Letztes Update: 13:48</div>
+          </article>
+
+          <article class="widget-card">
+            <div class="widget-label">Luftfeuchtigkeit</div>
+            <div class="widget-value" id="w-humidity">23%</div>
+            <div class="widget-sub">Relative Feuchte (2m)</div>
+          </article>
+
+          <article class="widget-card">
+            <div class="widget-label">Wind</div>
+            <div class="widget-value" id="w-wind">37 km/h</div>
+            <div class="widget-sub">Geschwindigkeit aktuell</div>
+          </article>
+
+          <article class="widget-card">
+            <div class="widget-label">Standort</div>
+            <div class="widget-value" id="w-location">Emmendingen</div>
+            <div class="widget-sub" id="w-updated">Letztes Update: 13:48</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODAL / POPUP ================= -->
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" aria-label="Schließen">×</button>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Inhalte pro Karte (kannst du frei tauschen) -->
+  <template id="modal-1">
+    <h2 id="modal-title">Vinyl-Sammlung</h2>
+    <p>Hier kannst du deine Vinyl-Platten tracken und im Blick behalten. </p>
+    <ul>
+      <p><b>→ Platten erfassen</b></p>
+      <p><b>→ Sammlung sortieren</b></p>
+      <p><b>→ Alles verwalten</b></p>
+    </ul>
+
+
+    <!-- SLIDER -->
+    <div class="modal-slider" aria-label="Feature-Slider">
+      <div class="modal-slider-track">
+        <!-- 1. Runde -->
+        <div class="modal-slide"><img src="assets/img/vinyl-1.png" alt="vinyl Screenshot 1"></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-2.png" alt="vinyl Screenshot 2"></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-3.png" alt="vinyl Screenshot 3"></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-4.png" alt="vinyl Screenshot 4"></div>
+
+        <!-- 2. Runde (Duplikate für Endlos-Loop) -->
+        <div class="modal-slide"><img src="assets/img/vinyl-1.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-2.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-3.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/vinyl-4.png" alt=""></div>
+      </div>
+    </div>
+
+	<a href="https://lucariomi-1998.github.io/Platten/"
+	   class="btn-primary modal-cta"
+	   target="_blank"
+	   rel="noopener noreferrer">
+	  Zur Vinyl-App
+	</a>
+  </template>
+
+  <template id="modal-2">
+    <h2 id="modal-title">Manga-Sammlung</h2>
+    <p>Übersicht über deine Manga – Anzahl der Bände, Werte, Reihen…</p>
+    <ul>
+      <p><b>→ Bände erfassen</p>
+      <p><b>→ Lesestatus tracken</p>
+      <p><b>→ Genres & Notizen verwalten</p>
+    </ul>
+
+
+    <!-- SLIDER -->
+    <div class="modal-slider" aria-label="Feature-Slider">
+      <div class="modal-slider-track">
+        <!-- 1. Runde -->
+        <div class="modal-slide"><img src="assets/img/manga-1.png" alt="manga Screenshot 1"></div>
+        <div class="modal-slide"><img src="assets/img/manga-2.png" alt="manga Screenshot 2"></div>
+        <div class="modal-slide"><img src="assets/img/manga-3.png" alt="manga Screenshot 3"></div>
+        <div class="modal-slide"><img src="assets/img/manga-4.png" alt="manga Screenshot 4"></div>
+
+        <!-- 2. Runde (Duplikate für Endlos-Loop) -->
+        <div class="modal-slide"><img src="assets/img/manga-1.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/manga-2.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/manga-3.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/manga-4.png" alt=""></div>
+      </div>
+    </div>
+
+<a href="https://lucariomi-1998.github.io/Manga_Liste/"
+   class="btn-primary modal-cta"
+   target="_blank"
+   rel="noopener noreferrer">
+  Zur Manga-App
+</a>
+  </template>
+
+  <template id="modal-3">
+    <h2 id="modal-title">Manga-Wand</h2>
+    <p>Optische Auflistung der Mangas im Besitz, visuell schön dargestellt.</p>
+    <ul>
+      <p><b>→ Rahmen auswählen</b></p>
+      <p><b>→ Reihen sortieren</b></p>
+      <p><b>→ Galerie teilen</b></p>
+    </ul>
+
+
+    <!-- SLIDER -->
+    <div class="modal-slider" aria-label="Feature-Slider">
+      <div class="modal-slider-track">
+        <!-- 1. Runde -->
+        <div class="modal-slide"><img src="assets/img/wand-1.png" alt="wand Screenshot 1"></div>
+        <div class="modal-slide"><img src="assets/img/wand-2.png" alt="wand Screenshot 2"></div>
+        <div class="modal-slide"><img src="assets/img/wand-3.png" alt="wand Screenshot 3"></div>
+        <div class="modal-slide"><img src="assets/img/wand-4.png" alt="wand Screenshot 4"></div>
+
+        <!-- 2. Runde (Duplikate für Endlos-Loop) -->
+        <div class="modal-slide"><img src="assets/img/wand-1.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/wand-2.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/wand-3.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/wand-4.png" alt=""></div>
+      </div>
+    </div>
+
+	<a href="https://lucariomi-1998.github.io/mangawall/"
+	   class="btn-primary modal-cta"
+	   target="_blank"
+	   rel="noopener noreferrer">
+	  Zur Manga-Wand
+	</a>
+  </template>
+
+  <template id="modal-4">
+    <h2 id="modal-title">Ticket-System</h2>
+    <p>Support-Flow, FAQ oder direkte Kontaktmöglichkeiten.</p>
+    <ul>
+      <p><b>→ Ticket erstellen</b></p>
+      <p><b>→ Status verfolgen</b></p>
+      <p><b>→ FAQ durchsuchen</b></p>
+    </ul>
+
+
+    <!-- SLIDER -->
+    <div class="modal-slider" aria-label="Feature-Slider">
+      <div class="modal-slider-track">
+        <!-- 1. Runde -->
+        <div class="modal-slide"><img src="assets/img/ticket-1.png" alt="ticket Screenshot 1"></div>
+        <div class="modal-slide"><img src="assets/img/ticket-2.png" alt="ticket Screenshot 2"></div>
+        <div class="modal-slide"><img src="assets/img/ticket-3.png" alt="ticket Screenshot 3"></div>
+        <div class="modal-slide"><img src="assets/img/ticket-4.png" alt="ticket Screenshot 4"></div>
+
+        <!-- 2. Runde (Duplikate für Endlos-Loop) -->
+        <div class="modal-slide"><img src="assets/img/ticket-1.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/ticket-2.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/ticket-3.png" alt=""></div>
+        <div class="modal-slide"><img src="assets/img/ticket-4.png" alt=""></div>
+      </div>
+    </div>
+
+   <a href="https://lucariomi-1998.github.io/Ticketsystem/"
+      class="btn-primary modal-cta"
+      target="_blank"
+      rel="noopener noreferrer">
+     Zum Support
+  </template>
+  <!-- ================================================= -->
+
+  <footer>
+    <div class="container" style="padding:1rem 0;text-align:center;font-size:.85rem;color:var(--text-soft);">
+      <a href="#" style="color:var(--text-soft);"><b>Luca Michalski</b>  |  Impressum  |  Datenschutz  |  AGB</a>
+    </div>
+  </footer>
+</div>
+
+<!-- Modal Script -->
+<script src="assets/js/modal.js"></script>
+
+
+<!-- HERO Slider Script -->
+<script>
+(function () {
+  const slider = document.getElementById("heroSlider");
+  if (!slider) return;
+
+  const slides = Array.from(slider.querySelectorAll(".slide"));
+  if (slides.length <= 1) return;
+
+  let index = 0;
+  const INTERVAL_MS = 2500; // schneller Lauf (2.5s)
+
+  function show(i) {
+    slides.forEach(s => s.classList.remove("active"));
+    slides[i].classList.add("active");
+  }
+
+  function next() {
+    index = (index + 1) % slides.length;
+    show(index);
+  }
+
+  show(index);
+  let timer = setInterval(next, INTERVAL_MS);
+
+  // optional: pause on hover
+  slider.addEventListener("mouseenter", () => clearInterval(timer));
+  slider.addEventListener("mouseleave", () => {
+    timer = setInterval(next, INTERVAL_MS);
+  });
+})();
+</script>
+
+<!-- LIVE Wetter Script -->
+<script>
+  (function () {
+    const elTemp = document.getElementById("w-temp");
+    const elHum = document.getElementById("w-humidity");
+    const elWind = document.getElementById("w-wind");
+    const elLoc = document.getElementById("w-location");
+    const elDesc = document.getElementById("w-desc");
+    const elUpd = document.getElementById("w-updated");
+
+    const fallback = {
+      lat: 48.12,
+      lon: 7.85,
+      label: "Emmendingen"
+    };
+
+    function formatTime(isoString) {
+      if (!isoString) return "--:--";
+      const d = new Date(isoString);
+      return d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    async function fetchWeather(lat, lon, label) {
+      const url =
+        `https://api.open-meteo.com/v1/forecast` +
+        `?latitude=${lat}&longitude=${lon}` +
+        `&current=temperature_2m,relative_humidity_2m,wind_speed_10m` +
+        `&timezone=auto`;
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Weather API error");
+      const data = await res.json();
+
+      const cur = data.current || {};
+      const t = cur.temperature_2m;
+      const h = cur.relative_humidity_2m;
+      const w = cur.wind_speed_10m;
+      const time = cur.time;
+
+      if (elTemp) elTemp.textContent = t == null ? "–" : `${Math.round(t)}°`;
+      if (elHum) elHum.textContent = h == null ? "–" : `${Math.round(h)}%`;
+      if (elWind) elWind.textContent = w == null ? "–" : `${Math.round(w)} km/h`;
+
+      const locLabel = label || data.timezone || fallback.label;
+      if (elLoc) elLoc.textContent = locLabel;
+
+      const stamp = formatTime(time);
+      if (elDesc) elDesc.textContent = `Letztes Update: ${stamp}`;
+      if (elUpd) elUpd.textContent = `Letztes Update: ${stamp}`;
+    }
+
+    function getUserLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) reject(new Error("no geolocation"));
+        navigator.geolocation.getCurrentPosition(
+          (pos) =>
+            resolve({
+              lat: pos.coords.latitude,
+              lon: pos.coords.longitude
+            }),
+          reject,
+          { enableHighAccuracy: false, timeout: 8000 }
+        );
+      });
+    }
+
+    async function refresh() {
+      try {
+        const { lat, lon } = await getUserLocation();
+        await fetchWeather(lat, lon, null);
+      } catch (e) {
+        await fetchWeather(fallback.lat, fallback.lon, fallback.label);
+      }
+    }
+
+    refresh();
+    setInterval(refresh, 10 * 60 * 1000);
+  })();
+</script>
+
+</body>
+</html>
